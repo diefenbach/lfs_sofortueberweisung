@@ -2,7 +2,6 @@
 from django.conf import settings
 
 # lfs imports
-from lfs.cart.utils import get_cart
 from lfs.plugins import PaymentMethodProcessor
 from lfs.plugins import PM_ORDER_IMMEDIATELY
 
@@ -15,6 +14,7 @@ class SofortUeberweisungPaymentMethodProcessor(PaymentMethodProcessor):
     def process(self):
         return {
             "accepted": True,
+            "redirect": True,
             "next_url": "https://www.sofortueberweisung.de/payment/start?user_id=%s&project_id=%s&reason_1=Bestellnummer %s&amount=%s&currency=EUR"
             % (
                 settings.SOFORTUEBERWEISUNG_USERID,
